@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--# Author      : Weblytic Labs Pvt. Ltd. (<https://store.weblyticlabs.com/>)-->
+<!--# Copyright(c): 2023-Present Weblytic Labs Pvt. Ltd.-->
+<odoo>
+    <template id="custom_product_details" inherit_id="website_sale.cta_wrapper">
+        Hide the original Add to Cart button
+        <xpath expr="//div[@id='o_wsale_cta_wrapper']" position="before">
+            <div id="date_overlap_alert" class="alert alert-danger mt-n2 d-none" role="alert">
+            </div>
+        </xpath>
+
+        <xpath expr="//a[@id='add_to_cart']" position="replace">
+            <t t-if="product.custom_price">
+                <div class="d-flex flex-column">
+                    <!-- New Add to Cart button -->
+                    <button class="btn btn-primary"
+                            id="custom_add_to_cart"
+                            type="button"
+                            t-att-data-product-template-id="product.id"
+                            t-att-data-min-fixed="product.min_fixed_price"
+                            t-att-data-min-percent="product.final_price"
+                            t-att-data-currency-symbol="website.currency_id.symbol">
+
+                        <span class="js_product_price d-none"
+                              t-att-data-max-price="combination_info['list_price']"/>
+                        Add to Cart
+                    </button>
+                </div>
+            </t>
+            <t t-else="">
+                <a id="add_to_cart"
+                   role="button"
+                   class="btn btn-primary a-submit"
+                   href="#">
+                    Add to Cart
+                </a>
+            </t>
+        </xpath>
+    </template>
+</odoo>

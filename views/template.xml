@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--# Author      : Weblytic Labs Pvt. Ltd. (<https://store.weblyticlabs.com/>)-->
+<!--# Copyright(c): 2023-Present Weblytic Labs Pvt. Ltd.-->
+<odoo>
+
+    <template id="wbl_product_inherit" inherit_id="website_sale.product">
+        <xpath expr="//div[contains(@class, 'o_wsale_product_details_content_section_price')]" position="after">
+
+            <t t-if="product.custom_price and product.min_custom_price == 'fixed'">
+                <div class="card mt-3 p-3">
+                    <label class="fw-bold mb-2">
+
+                        <span style="margin-left: 5px;">Enter your custom price</span>
+
+                        <t t-set="currency_symbol" t-value="website.currency_id.symbol"/>
+
+                        <input type="number"
+                               step="0.01"
+                               class="form-control js_custom_price"
+                               name="custom_price"
+                               style="margin-top: 10px;"
+                               t-attf-placeholder="Minimum amount: #{currency_symbol} #{'% .2f ' % product.min_fixed_price}"
+                               t-att-min="product.min_fixed_price"/>
+                    </label>
+
+                </div>
+            </t>
+
+            <t t-if="product.custom_price and product.min_custom_price == 'percent'">
+                <div class="card mt-3 p-3">
+                    <label class="fw-bold mb-2">
+
+
+                        <span style="margin-left: 5px;">Enter your custom price</span>
+                        <t t-set="currency_symbol" t-value="website.currency_id.symbol"/>
+
+                        <input type="number"
+                               step="0.01"
+                               class="form-control js_custom_percent"
+                               name="custom_percent"
+                               style="margin-top: 10px;"
+                               t-attf-placeholder="Minimum amount: #{currency_symbol} #{'%.2f' % product.final_price}"
+                               t-att-min="product.final_price"/>
+                    </label>
+
+                </div>
+            </t>
+
+        </xpath>
+    </template>
+
+
+</odoo>
